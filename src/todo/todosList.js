@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 function TodosList(props) {
     return (
@@ -20,7 +21,7 @@ function TodosList(props) {
 
     function renderTodo(todo) {
         return (<tr key={todo.id}>
-            <td>{todo.title}</td>
+            <td><Link to={'/todo/'+ todo.id}>{todo.title}</Link></td>
             <td>{todo.completed ? 'Yes' : 'No'}</td>
             <td>
                 <button>Some button</button>
