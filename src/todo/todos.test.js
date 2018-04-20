@@ -2,11 +2,12 @@ import React from 'react';
 import Todos from './todos';
 import {mount} from 'enzyme';
 import moxios from 'moxios';
+import {MemoryRouter} from 'react-router-dom';
 
 describe('Todos Component', () => {
 
     it('renders header', () => {
-        const wrapper = mount(<Todos/>);
+        const wrapper = mount(<MemoryRouter><Todos/></MemoryRouter>);
 
         expect(wrapper.find('h1').text()).toEqual('Your todos from today');
     });
@@ -16,9 +17,9 @@ describe('Todos Component', () => {
             {id: 1, title: 'Buy milk', completed: false}
         ];
 
-        const wrapper = mount(<Todos todos={todos}/>);
+        const wrapper = mount(<MemoryRouter><Todos todos={todos}/></MemoryRouter>);
 
-        expect(wrapper.find('[data-todos-count]').text()).toEqual('You have 1 todos')
+        expect(wrapper.find('[data-todos-count]').text()).toEqual('You have 1 todos');
     });
 
     it('renders todos count for 1 todo', () => {
@@ -28,9 +29,9 @@ describe('Todos Component', () => {
             {id: 3, title: 'Send email', completed: false},
         ];
 
-        const wrapper = mount(<Todos todos={todos}/>);
+        const wrapper = mount(<MemoryRouter><Todos todos={todos}/></MemoryRouter>);
 
-        expect(wrapper.find('[data-todos-count]').text()).toEqual('You have 3 todos')
+        expect(wrapper.find('[data-todos-count]').text()).toEqual('You have 3 todos');
     });
 
     describe('server test', function () {
@@ -45,7 +46,9 @@ describe('Todos Component', () => {
 
         it('renders todos count from server', (done) => {
             const wrapper = mount(
-                <Todos todos={[]}/>
+                <MemoryRouter>
+                    <Todos todos={[]}/>
+                </MemoryRouter>
             );
 
             moxios.wait(async () => {
@@ -66,9 +69,11 @@ describe('Todos Component', () => {
         });
 
         it('submits new todo', (done) => {
-            const wrapper = mount(<Todos todos={[]}/>);
+            const wrapper = mount(<MemoryRouter>
+                <Todos todos={[]}/>
+            </MemoryRouter>);
 
-            wrapper.instance().onNewTodo({title: 'Write a book'});
+            wrapper.find('Todos').instance().onNewTodo({title: 'Write a book'});
 
             moxios.wait(async () => {
                 let request = moxios.requests.mostRecent();
