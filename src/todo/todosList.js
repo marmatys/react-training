@@ -12,7 +12,7 @@ function TodosList(props) {
     );
 
     function renderTodo(todo) {
-        return (<tr>
+        return (<tr key={todo.id}>
             <td>{todo.title}</td>
         </tr>);
     }
