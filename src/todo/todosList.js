@@ -5,7 +5,7 @@ function TodosList(props) {
         <div>
             <table data-todos-table>
                 <tbody>
-                {props.todos.map((todo) => renderTodo(todo))}
+                {props.todos.map(renderTodo)}
                 </tbody>
             </table>
         </div>
