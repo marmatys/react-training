@@ -1,6 +1,7 @@
 import React from 'react';
 import TodosList from './todosList';
 import TodosNew from './todosNew';
+import axios from 'axios';
 
 class Todos extends React.Component {
 
@@ -10,6 +11,17 @@ class Todos extends React.Component {
             todos: props.todos
         }
     }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = () => {
+        axios.get('http://localhost:3001/todos')
+            .then(resp => resp.data)
+            .then(data => this.setState({todos: data}))
+            .catch(err => console.log(err));
+    };
 
     onNewTodo = (todo) => {
         this.setState({
