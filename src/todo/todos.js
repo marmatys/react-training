@@ -24,10 +24,8 @@ class Todos extends React.Component {
     };
 
     onNewTodo = (todo) => {
-        this.setState({
-            // todos: [...this.state.todos, _.extend(todo, {key: _.uniq()})]
-            todos: [...this.state.todos, todo]
-        });
+        axios.post('http://localhost:3001/todos', todo)
+            .then(this.fetchData);
     };
 
     render() {

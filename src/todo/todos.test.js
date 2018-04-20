@@ -64,6 +64,24 @@ describe('Todos Component', () => {
                 });
             });
         });
+
+        it('submits new todo', (done) => {
+            const wrapper = mount(<Todos todos={[]}/>);
+
+            wrapper.instance().onNewTodo({title: 'Write a book'});
+
+            moxios.wait(async () => {
+                let request = moxios.requests.mostRecent();
+                request.respondWith({
+                    state: 200
+                }).then(() => {
+                    expect(JSON.parse(request.config.data)).toEqual(
+                        jasmine.objectContaining({title: 'Write a book'})
+                    );
+                    done();
+                });
+            });
+        });
     });
 
 });
