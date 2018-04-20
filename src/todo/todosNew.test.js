@@ -21,6 +21,6 @@ describe('TodosNew component', () => {
 
         wrapper.find('form').simulate('submit');
 
-        expect(onNewTodo.mock.calls).toHaveLength(1);
+        expect(onNewTodo).toHaveBeenCalledWith({title: 'My new todo'});
     });
 });
