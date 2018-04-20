@@ -20,7 +20,7 @@ class Todos extends React.Component {
         axios.get('http://localhost:3001/todos')
             .then(resp => resp.data)
             .then(data => this.setState({todos: data}))
-            .catch(err => console.log(err));
+            .catch(err => {});
     };
 
     onNewTodo = (todo) => {
