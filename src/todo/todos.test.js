@@ -2,12 +2,12 @@ import React from 'react';
 import Todos from './todos';
 import {mount} from 'enzyme';
 import moxios from 'moxios';
-import {MemoryRouter} from 'react-router-dom';
+import withMemoryRouter from '../testUtils';
 
 describe('Todos Component', () => {
 
     it('renders header', () => {
-        const wrapper = mount(<MemoryRouter><Todos/></MemoryRouter>);
+        const wrapper = mount(withMemoryRouter(<Todos/>));
 
         expect(wrapper.find('h1').text()).toEqual('Your todos from today');
     });
@@ -17,19 +17,19 @@ describe('Todos Component', () => {
             {id: 1, title: 'Buy milk', completed: false}
         ];
 
-        const wrapper = mount(<MemoryRouter><Todos todos={todos}/></MemoryRouter>);
+        const wrapper = mount(withMemoryRouter(<Todos todos={todos}/>));
 
         expect(wrapper.find('[data-todos-count]').text()).toEqual('You have 1 todos');
     });
 
-    it('renders todos count for 1 todo', () => {
+    it('renders todos count for 3 todo', () => {
         const todos = [
             {id: 1, title: 'Buy milk', completed: false},
             {id: 2, title: 'Send PIT', completed: false},
             {id: 3, title: 'Send email', completed: false},
         ];
 
-        const wrapper = mount(<MemoryRouter><Todos todos={todos}/></MemoryRouter>);
+        const wrapper = mount(withMemoryRouter(<Todos todos={todos}/>));
 
         expect(wrapper.find('[data-todos-count]').text()).toEqual('You have 3 todos');
     });
@@ -46,9 +46,9 @@ describe('Todos Component', () => {
 
         it('renders todos count from server', (done) => {
             const wrapper = mount(
-                <MemoryRouter>
+                withMemoryRouter(
                     <Todos todos={[]}/>
-                </MemoryRouter>
+                )
             );
 
             moxios.wait(async () => {
@@ -69,9 +69,9 @@ describe('Todos Component', () => {
         });
 
         it('submits new todo', (done) => {
-            const wrapper = mount(<MemoryRouter>
+            const wrapper = mount(withMemoryRouter(
                 <Todos todos={[]}/>
-            </MemoryRouter>);
+            ));
 
             wrapper.find('Todos').instance().onNewTodo({title: 'Write a book'});
 

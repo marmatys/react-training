@@ -1,13 +1,12 @@
-
 import React from 'react';
 import {mount} from 'enzyme';
 
 import TodosList from './todosList';
-import {MemoryRouter} from 'react-router';
+import withMemoryRouter from '../testUtils';
 
 describe('TodosList component', () => {
     it('renders table', () => {
-        const wrapper = mount(<MemoryRouter><TodosList/></MemoryRouter>);
+        const wrapper = mount(withMemoryRouter(<TodosList/>));
 
         expect(wrapper.find('table')).toExist();
     });
@@ -20,7 +19,7 @@ describe('TodosList component', () => {
             {id: 3, title: 'Send email', completed: false},
         ];
 
-        const wrapper = mount(<MemoryRouter><TodosList todos={todos}/></MemoryRouter>);
+        const wrapper = mount(withMemoryRouter(<TodosList todos={todos}/>));
 
         expect(wrapper.find('[data-todos-table] tbody tr')).toHaveLength(3);
     });
